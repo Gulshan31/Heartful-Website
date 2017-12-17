@@ -1,3 +1,39 @@
+
+document.onreadystatechange = function () {
+  var state = document.readyState
+  if (state == 'interactive') {
+       document.getElementById('contents').style.visibility="hidden";
+      $('#load').on('mousewheel touchmove', function(e) {
+      e.preventDefault();
+});
+  } else if (state == 'complete') {
+      setTimeout(function(){
+         document.getElementById('interactive');
+         document.getElementById('load').style.visibility="hidden";
+         document.getElementById('contents').style.visibility="visible";
+       
+      },2000);
+    
+    
+    //Animation For Download Page//
+    setTimeout(function(){
+    $('.logo-wali').hide().fadeIn(500);
+    $('.tag-line').hide();
+    $('#playstore').hide()
+    $('.tag-line').fadeIn({duration:1000,queue:false}).animate({
+      "marginTop":"9%"
+    },{duration:1000, queue:false});
+      $('#playstore').fadeIn({duration:1000,queue:false})
+ //End of Animations for download Page//
+      
+      
+     
+      }, 2000);
+  }
+}
+
+
+
 //CODE ADDED BY ANSHUL STARTS HERE
 function validateEmail(email) {
   var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -72,37 +108,6 @@ $(document).ready(function(){
             }
         });
     });
-document.onreadystatechange = function () {
-  var state = document.readyState
-  if (state == 'interactive') {
-       document.getElementById('contents').style.visibility="hidden";
-      $('#load').on('mousewheel touchmove', function(e) {
-      e.preventDefault();
-});
-  } else if (state == 'complete') {
-      setTimeout(function(){
-         document.getElementById('interactive');
-         document.getElementById('load').style.visibility="hidden";
-         document.getElementById('contents').style.visibility="visible";
-       
-      },2000);
-    
-    
-    //Animation For Download Page//
-    setTimeout(function(){
-    $('.logo-wali').hide().fadeIn(500);
-    $('.tag-line').hide();
-    $('.tag-line').fadeIn({duration:1000,queue:false}).animate({
-      "marginTop":"9%"
-    },{duration:1000, queue:false});
-      $('#playstore').hide().fadeIn({duration:1000,queue:false})
- //End of Animations for download Page//
-      
-      
-     
-      }, 2000);
-  }
-}
 
 /* Animations to Download Page */
 
@@ -180,7 +185,9 @@ document.onreadystatechange = function () {
 //     } // End if
 //   });
 // });
+
 //Animation feature section//
+
 $(".heading").css('opacity',0);
 $(".heading").waypoint(function(){
   $(".heading").animate({opacity:1},500)
@@ -195,9 +202,9 @@ $(".screenshot").waypoint(function(){
 $(this).animate({opacity:1},{duration:500,queue:false})
   },{offset:400});
 
-$(".screenshot").waypoint(function(){ 
-$(this).animate({"marginLeft":"0px"},{duration:500,queue:false})
-  },{offset:400});
+//$(".screenshot").waypoint(function(){ 
+//$(this).animate({"marginLeft":"0px"},{duration:500,queue:false})
+//  },{offset:400});
 
 
 $(".bullets").waypoint(function(){ 
@@ -225,9 +232,9 @@ $(".screenshot2").waypoint(function(){
 $(this).animate({opacity:1},{duration:500,queue:false})
   },{offset:400});
 
-$(".screenshot2").waypoint(function(){ 
-$(this).animate({"marginLeft":"0px"},{duration:500,queue:false})
-  },{offset:400});
+//$(".screenshot2").waypoint(function(){ 
+//$(this).animate({"marginLeft":"0px"},{duration:500,queue:false})
+//  },{offset:400});
 
 $(".bullet2").waypoint(function(){ 
 $(this).animate({opacity:1},{duration:700,queue:false})
@@ -341,20 +348,87 @@ var email;
 
 function login(){
     
-         $("#login").fadeOut(function(){
-    $("#loading").fadeIn();
-     });
-    email=document.getElementById("formUsername").value;
-//    window.alert(email);
-  //  window.location.href ="signin.html" ;
-    password=document.getElementById("formPassword").value;
+         
+   
 //      var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 //
 //    if (!filter.test(email)) {
 //    alert('Please provide a valid email address');
 //    email.focus;
 // }
-   firebase.auth().signInWithEmailAndPassword(email, password).then(function(result){
+    
+    $("#login").fadeOut(function(){
+        ActualLogin();
+     });
+   //////
+
+        
+  // Handle Errors here.
+//  var errorCode = error.code;
+//  var errorMessage = error.message;
+//         
+////        $("#login").fadeOut(function(){
+////    $("#loading").fadeIn(function(){
+//        
+//    
+//  if (errorCode === 'auth/wrong-password') {
+//    alert(errorMessage);
+//  } 
+//        else if (errorCode === 'auth/account-exists-with-different-credential') {
+//    alert(errorMessage);
+//  } 
+//        else if (errorCode === 'auth/invalid-credential') {
+//    alert(errorMessage);
+//  } 
+//        else if (errorCode === 'auth/operation-not-allowed') {
+//    alert(errorMessage);
+//  } 
+//        else if (errorCode === 'auth/user-disabled') {
+//    alert(errorMessage);
+//  } 
+//        else if (errorCode === 'auth/user-not-found') {
+//    alert(errorMessage);
+//  } 
+//        else if (errorCode === 'auth/invalid-verification-code') {
+//    alert(errorMessage);
+//  } 
+//        else if (errorCode === 'auth/invalid-verification-id') {
+//    alert(errorMessage);
+//  } 
+//        else if(errorCode === "auth/invalid-email"){
+////            $("#login").hide();
+//            alert(errorMessage);
+////            $("#loading").fadeIn();
+//        }
+        
+//        else {
+////       window.location.href = "signin.html";
+//             $("#login-button").fadeOut();
+//  }
+//       
+//  console.log(error);
+//            });
+//     });
+        
+//       $("#loading").fadeOut(function(){
+//           $('#login').fadeIn();
+//       });    
+
+//});
+    
+
+     }
+
+function ActualLogin(){ 
+            $("#loading").fadeIn(function(){
+                                 
+                                 email=document.getElementById("formUsername").value;
+//    window.alert(email);
+  //  window.location.href ="signin.html" ;
+    password=document.getElementById("formPassword").value;
+    ////
+    
+    firebase.auth().signInWithEmailAndPassword(email, password).then(function(result){
          var childData;
        var can_post;
             var user = result.user;
@@ -383,13 +457,11 @@ function login(){
     
   
     }).catch(function(error) {
-        
-  // Handle Errors here.
-  var errorCode = error.code;
+    var errorCode = error.code;
   var errorMessage = error.message;
          
-        $("#login").fadeOut(function(){
-    $("#loading").fadeIn(function(){
+//        $("#login").fadeOut(function(){
+//    $("#loading").fadeIn(function(){
         
     
   if (errorCode === 'auth/wrong-password') {
@@ -422,23 +494,17 @@ function login(){
 //            $("#loading").fadeIn();
         }
         
-//        else {
-////       window.location.href = "signin.html";
-//             $("#login-button").fadeOut();
-//  }
-//       
-  console.log(error);
-            });
+        $("#loading").fadeOut(function(){
+    $("#login").fadeIn();
      });
-        
-       $("#loading").fadeOut(function(){
-           $('#login').fadeIn();
-       });    
-
-});
     
 
-     }
+    });
+                                 });
+
+     
+}
+             
 
 function onEnter(){
  if(event.keyCode == 13){ 

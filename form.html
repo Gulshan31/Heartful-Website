@@ -2,9 +2,8 @@
 <html>
 <head>
   <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0"> 
   <title>Registration Form</title>
-  
-  
   
       <link rel="stylesheet" href="formCSS/style.css">
 
@@ -16,6 +15,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
      <link href="https://fonts.googleapis.com/css?family=Limelight|Molengo" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Limelight" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Merriweather:700" rel="stylesheet">
 
 <div id="form" class=container style="padding: 20px;">
   <h3 class="text-center heading">Organisation's Registration Form</h3>
@@ -354,8 +354,30 @@
   <small class=text-muted>It will either be an Email address, facebook page or any other social network.</small>
          </div>
          
+      <div class="form-group">
+    <label for="nameNgo">7. Provide a link through which people can donate to your Organisation.</label>
+     
+    <input type="text" class="form-control" id="donatePeople" aria-describedby="Donate People" placeholder="Donate">
+  <small class=text-muted>It should be link which leads to your donation page on your website.</small>
+          
+         </div>
+      <div class="form-group">
+    <label for="nameNgo">8. Please specify the "Mission" of your NGO</label>
+     
+    <input type="text" class="form-control" id="mission" aria-describedby="Mission" placeholder="Mission">
+  <small class=text-muted>This will be shown in the "MISSION" column of your NGO page in the app.</small>
+          
+         </div>
+       <div class="form-group">
+    <label for="nameNgo">9. Please specify the "Vision" of your NGO</label>
+     
+    <input type="text" class="form-control" id="vision" aria-describedby="Vision" placeholder="Vision">
+  <small class=text-muted>This will be shown in the "VISION" column of your NGO page in the app.</small>
+          
+         </div>
+      
          <div class="form-group">
-    <label for="email">7. Provide an email id through which you can post news. </label>
+    <label for="email">10. Provide an email id through which you can post news. </label>
      
     <input type="email" class="form-control " id="email" aria-describedby="contact People" placeholder="Email" >
   <small class=text-muted>This email address must be different which you provide for users. this will save app from spamming. It must be secret so that no one can post using your email.</small>
@@ -398,8 +420,10 @@
     <input type="password" id="formConfirmPassword" onkeypress="onEnter()" placeholder="Confirm Password">
             </div>
             <br>
-            <button id="signUp-button" onclick="signUp()">Sign up</button>
+            <button id="signUp-button" onclick="signUp()">
+                <div id="signUp">Sign Up</div>
         <div id="loading">Loading....</div>
+                </button>
         </div>
         </div>
   <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>

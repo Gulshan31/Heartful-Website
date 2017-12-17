@@ -3,8 +3,8 @@
 <html>
     <head>
         <meta charset="UTF-8">
-          
-                            <title>Heartful</title>
+            <meta name="viewport" content="width=device-width,initial-scale=1.0"> 
+                     <title>Heartful</title>
          <!-- FAVICON-->
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 <link rel="icon" href="apple-icon-60x60.png" type="image/x-icon">
@@ -69,7 +69,7 @@
 
       <a class="navigation-buttons" href="#download_button" onclick="myFunction()" id="download_a">DOWNLOAD</a>
       <a class="navigation-buttons" href="#feature_button" style=" text-decoration:none;" onclick="myFunction()" id="features_a">FEATURES</a>
-      <a class="navigation-buttons" href="#terms">TERMS</a>
+      <a class="navigation-buttons" href="privacy_policy.html">TERMS</a>
       <a class="navigation-buttons" href="#contact_button" style="text-decoration:none;" 
 onclick="myFunction()"         
 id="contact_a">CONTACT</a>
@@ -233,7 +233,7 @@ id="contact_a">CONTACT</a>
         <div id="background-inner">
             
             <div class="group">
-                  <input type="email" id="formUsername" autocomplete="on" name="username" class="form-control" placeholder="" required spellcheck="false" />
+                  <input type="text" id="formUsername" onkeypress="onEnter()" autocomplete="on" name="username" class="form-control" placeholder="" required spellcheck="false" />
                 <span class="highlight"></span>
             <span class="bar"></span>
                 <label id="label">Email</label>

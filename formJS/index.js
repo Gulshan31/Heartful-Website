@@ -1,6 +1,11 @@
+   
+$("#background").hide();
+    console.log("pehle");
 var file;
 $("#logoPreview").hide();
+
 //Preview Logo
+        console.log("dusra");
     function readURL(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
@@ -28,7 +33,7 @@ function validateEmail(email) {
   var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(email);
 }   
-$("#background").hide();
+
 var checkedValue=[];
 var checkedValueState =[];
 var category = {};
@@ -37,6 +42,9 @@ var valueName;
 var searchname;
 var websiteLink;
 var contactPeople;
+var donatePeople;
+var mission;
+var vision;
 var email;
 var logoNgo;
 //
@@ -82,6 +90,119 @@ $('.messageCheckbox13').click(function() {
     }
 });
 
+
+ $("#loading").hide();
+
+    function createUser(){
+        
+    var email=document.getElementById("formEmail").value;
+//    window.alert(email);
+  //  window.location.href ="signin.html" ;
+    var password=document.getElementById("formPassword").value;
+    var confirmPassword= document.getElementById("formConfirmPassword").value;
+//    console.log(email);
+//    console.log(password);
+    if(password !== confirmPassword){
+        
+        alert("Password does not match with above");    
+    }
+        
+    else{
+        $("#signUp").fadeOut(function(){
+    $("#loading").fadeIn();
+     });
+        
+firebase.auth().createUserWithEmailAndPassword(email, password).then(function(){
+//    var user = result.user;
+    var rootRef = firebase.database().ref().child("Users").child(firebase.auth().currentUser.uid).child("userInfo");
+    var can_post = true;
+    var userName =valueName;
+    var imageLink="";
+    var ngoid = Date.now();
+    console.log(ngoid); 
+    rootRef.set({canPost: can_post, profilePicLink: imageLink, userName: userName,NGOId:ngoid}).then(function() {
+        var storageRef = firebase.storage().ref('LogoImages/' + file.name);
+    var task = storageRef.put(file);
+    
+    task.on('state_changed',
+               
+               function progress(snapshot){
+           
+        },
+                
+        function error(err){
+            
+        },
+                
+        function complete(){
+            storageRef.getDownloadURL().then(function(url){
+                imageURL = url;  
+    
+    var rootRefForm = firebase.database().ref().child("NgoList").push();
+                
+    rootRefForm.set({mOrgname: valueName, mImage: imageURL, NGOId:ngoid, mCategory:"testing",mState:state,
+                 mCategoryNew:category,
+                 mOrginfo: "This is also test",searchName:searchname, mVolunteer:websiteLink, mContact: contactPeople, mDonate:donatePeople, mMission:mission, mVision:vision }).then(function() {//ye hogya? test karne laga ok
+    console.log('Synchronization succeeded');
+//        window.location.href = "signUp.html";
+                window.location.href = "index.html";
+
+  })
+  .catch(function(error) {
+    console.log('Synchronization failed');
+        
+    });
+                 });
+                    });
+
+    console.log('Synchronization succeeded');
+  })
+  .catch(function(error) {
+    console.log('Synchronization failed');
+        
+    });
+   
+//  });
+    
+}).catch(function(error) {
+  // Handle Errors here.
+//    console.log('test');
+  var errorCode = error.code;
+  var errorMessage = error.message;
+    
+    $("#loading").fadeOut(function(){
+          $("#signUp").fadeIn(function(){ 
+       
+     
+    if (errorCode == 'auth/weak-password') {
+    alert(errorMessage);
+    }
+        if (errorCode == 'auth/email-already-in-use') {
+    alert(errorMessage);
+        }
+            if (errorCode == 'auth/invalid-email') {
+    alert(errorMessage);
+            }
+                if (errorCode == 'auth/operation-not-allowed') {
+    alert(errorMessage);
+                }
+      }); 
+});
+    });
+
+}
+    }
+ function onEnter(){
+     if(event.keyCode == 13){ 
+     
+   createUser();
+ 
+   }
+ }
+function signUp(){
+    createUser();
+}
+    
 function submit(){
    
 //    console.log($(".paddingTopics").text());      
@@ -141,6 +262,9 @@ function submit(){
     searchname = valueName.toLowerCase();
     websiteLink = $('#websiteLink').val();
     contactPeople = $('#contactPeople').val();
+    donatePeople = $("#donatePeople").val();
+    mission = $("#mission").val();
+    vision = $("#vision").val();
     email = $('#email').val();
     
     
@@ -153,7 +277,7 @@ function submit(){
 //    console.log(checkedMobile);
     var terms = document.getElementById('terms').checked;
     
-    if ( valueName == 0 || websiteLink == 0 || contactPeople == 0 || email == 0 ){
+    if ( valueName == 0 || email == 0 || mission == 0 || vision == 0){
         alert("Please fill the text");
     }
     else if ( logoNgo == 0 ){
@@ -182,122 +306,3 @@ function submit(){
 //    $('#formEmail').val($(this).val());
 //});
 }
-
- $("#loading").hide();
-
-    function createUser(){
-        $("#signUp-button").fadeOut(function(){
-    $("#loading").fadeIn();
-     });
-    var email=document.getElementById("formEmail").value;
-//    window.alert(email);
-  //  window.location.href ="signin.html" ;
-    var password=document.getElementById("formPassword").value;
-    var confirmPassword= document.getElementById("formConfirmPassword").value;
-//    console.log(email);
-//    console.log(password);
-    if(password !== confirmPassword){
-        alert("Password does not match with above");
-        $("#signUp-button").fadeOut(function(){
-    $("#loading").fadeIn();
-     });
-    }
-    else{
-firebase.auth().createUserWithEmailAndPassword(email, password).then(function(){
-//    var user = result.user;
-    var rootRef = firebase.database().ref().child("Users").child(firebase.auth().currentUser.uid).child("userInfo");
-    var can_post = true;
-    var userName =valueName;
-    var imageLink="";
-    var ngoid = Date.now();
-    console.log(ngoid); 
-    rootRef.set({canPost: can_post, profilePicLink: imageLink, userName: userName,NGOId:ngoid}).then(function() {
-        var storageRef = firebase.storage().ref('LogoImages/' + file.name);
-    var task = storageRef.put(file);
-    
-    task.on('state_changed',
-               
-               function progress(snapshot){
-           
-        },
-                
-        function error(err){
-            
-        },
-                
-        function complete(){
-            storageRef.getDownloadURL().then(function(url){
-                imageURL = url;  
-    
-    var rootRefForm = firebase.database().ref().child("NgoList").push();
-                
-    rootRefForm.set({mOrgname: valueName, mImage: imageURL, NGOId:ngoid, mCategory:"testing",mState:state,
-                 mCategoryNew:category,
-                 mOrginfo: "This is also test",searchName:searchname}).then(function() {
-    console.log('Synchronization succeeded');
-//        window.location.href = "signUp.html";
-                window.location.href = "heartful.html";
-
-  })
-  .catch(function(error) {
-    console.log('Synchronization failed');
-        $("#signUp-button").fadeOut(function(){
-    $("#loading").fadeIn();
-     });
-    });
-                 });
-                    });
-
-    console.log('Synchronization succeeded');
-  })
-  .catch(function(error) {
-    console.log('Synchronization failed');
-        $("#signUp-button").fadeOut(function(){
-    $("#loading").fadeIn();
-     });
-    });
-   
-//  });
-    
-}).catch(function(error) {
-  // Handle Errors here.
-//    console.log('test');
-  var errorCode = error.code;
-  var errorMessage = error.message;
-    
-    $("#signUp-button").fadeOut(function(){
-    $("#loading").fadeIn(function(){
-     
-    
-    if (errorCode == 'auth/weak-password') {
-    alert(errorMessage);
-    }
-        if (errorCode == 'auth/email-already-in-use') {
-    alert(errorMessage);
-        }
-            if (errorCode == 'auth/invalid-email') {
-    alert(errorMessage);
-            }
-                if (errorCode == 'auth/operation-not-allowed') {
-    alert(errorMessage);
-                }
-        });
-  });
-    $("#loading").fadeOut(function(){
-           $('#signUp-button').fadeIn();
-});
-    });
-
-}
-    }
- function onEnter(){
-     if(event.keyCode == 13){ 
-     
-   createUser();
- 
-   }
- }
-function signUp(){
-    createUser();
-}
-

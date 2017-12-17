@@ -2,6 +2,9 @@
 var base64encodedImage;
 var imageURL;
 var title;
+var date;
+var ngoId;
+
 var description;
 $('#chooseFile').bind('change', function () {
   var filename = $("#chooseFile").val();
@@ -139,14 +142,26 @@ var rootRef = firebase.database().ref().child("News").push();
      title = $('#title-input').val();
      description = $('#description-input').val();
      date = Date();
-    
-
-rootRef.set({Title: title, Description: description, DateAndTime: date, Image: imageURL}).then(function() {
+    var refForNGOID = firebase.database().ref().child("Users").child(firebase.auth().currentUser.uid).child("userInfo");
+                
+    refForNGOID.on('value',function(snapshot) {
+snapshot.forEach(function(childSnapshot) {
+       childData = childSnapshot.key;
+                console.log(childData); 
+                if(childData == "NGOId"){
+                     ngoId = childSnapshot.val();
+//                    console.log(can_post);
+                }
+                    });
+        rootRef.set({Title: title, Description: description, DateAndTime: date, Image: imageURL, NGOId: ngoId}).then(function() {
     console.log('Synchronization succeeded');
   })
   .catch(function(error) {
     console.log('Synchronization failed');
     });
+        });
+
+
    
   });
            
@@ -163,7 +178,7 @@ function onSignOut(){
     
 firebase.auth().signOut().then(function() {
   // Sign-out successful.
-    window.location.href = "heartful.html";
+    window.location.href = "index.html";
 }).catch(function(error) {
   // An error happened.
 });

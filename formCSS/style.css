@@ -30,7 +30,7 @@ body{
 }
 #formContainer{
     position: absolute;
-    top:25%;
+    top:15%;
     left: 30%;
     background: rgba(17, 17, 17, 0.3);
     width:40%;
@@ -111,7 +111,7 @@ input::-webkit-input-placeholder{
     background: #00aff0;
     border: none;
     color: whitesmoke;
-    font-family: "Limelight Molengo";
+    font-family: "Merriweather:700";
 }
 @media only screen and (max-width : 1024px)
 {
@@ -126,13 +126,39 @@ input::-webkit-input-placeholder{
     #formContainer{
         width: 90%; 
         left: 5%;
+        top:10%;
+        height: 80%;
     }
     #logo{
-        width: 50px;
+        width: 45px;
         margin-top: 12px 
     }
     #logo-name{
-        font-size: 35px;  
+        font-size: 30px;  
+    }
+    #formEmail{
+        font-size: 18px;
+        padding: 5px 10px 5px 50px;
+        margin-bottom: 0px;
+    }
+    #formPassword{
+        font-size: 18px;
+        padding: 5px 10px 5px 50px;
+        margin-bottom: 0px;
+        
+    }
+    #formConfirmPassword{
+        font-size: 18px;
+        padding: 5px 10px 5px 50px;
+        margin-bottom: 10px;
+    }
+    .inner-addon .glyphicon{
+        font-size: 17px;
+        padding: 9px;
+    }
+    #signUp-button{
+        padding: 7px 30px 7px 30px;
+        font-size: 20px;
     }
 }
 
