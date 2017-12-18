@@ -422,7 +422,7 @@ function login(){
 function ActualLogin(){ 
             $("#loading").fadeIn(function(){
                                  
-                                 email=document.getElementById("formUsername").value;
+    email=document.getElementById("formUsername").value;
 //    window.alert(email);
   //  window.location.href ="signin.html" ;
     password=document.getElementById("formPassword").value;
@@ -524,26 +524,7 @@ function onSubmit() {
    }
 
 function forgotPassword(){
-//    console.log("bhaiya g aapko ka hua");
-    email=document.getElementById("formUsername").value;
-//    window.alert(email);
-  //  window.location.href ="signin.html" ;
-//    password=document.getElementById("formPassword").value;
-    firebase.auth().sendPasswordResetEmail(email).then(function() {
-      // Password reset email sent.
-//        console.log("kya hua");
-    })
-    .catch(function(error) {
-      // Error occurred. Inspect error.code.
-    });
-    
-    firebase.auth().confirmPasswordReset(code, newPassword)
-    .then(function() {
-      // Success
-    })
-    .catch(function() {
-      // Invalid code
-    })
+    window.location.href = "forgotPassword.html";
 }
 
 //$("#test").submit(function(e) {
